@@ -477,15 +477,13 @@
     }
 
     /* ===================== INSTAGRAM ===================== */
-    #instagram { background: var(--cream); padding: 130px 0; }
+    #instagram { background: var(--cream); padding: 130px 0; overflow: hidden; }
 
     .ig-hdr { text-align: center; margin-bottom: 16px; }
     .ig-hdr .eyebrow { color: var(--crimson); }
     .ig-hdr .sec-title { color: var(--dark); }
 
-    .ig-handle {
-      text-align: center; margin-bottom: 52px;
-    }
+    .ig-handle { text-align: center; margin-bottom: 44px; }
     .ig-handle a {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic; font-size: 1.5rem;
@@ -494,44 +492,41 @@
     }
     .ig-handle a:hover { color: var(--crimson-dark); }
 
-    .ig-grid {
-      max-width: 1200px; margin: 0 auto;
-      padding: 0 64px;
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 10px;
-    }
-    .ig-post {
-      aspect-ratio: 1;
+    /* Carrusel infinito */
+    .ig-carousel-outer {
       overflow: hidden;
-      position: relative;
-      display: block;
-      cursor: pointer;
+      width: 100%;
+      padding: 12px 0 24px;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, black 90px, black calc(100% - 90px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, black 90px, black calc(100% - 90px), transparent 100%);
     }
-    .ig-post img {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block; transition: transform 0.45s;
-    }
-    .ig-post-ov {
-      position: absolute; inset: 0;
-      background: rgba(26,10,10,0);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 8px;
-      transition: background 0.35s;
-    }
-    .ig-post-ov i, .ig-post-ov span {
-      color: white; opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.3s;
-    }
-    .ig-post-ov i { font-size: 2rem; }
-    .ig-post-ov span { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; transition-delay: 0.04s; }
-    .ig-post:hover img { transform: scale(1.09); }
-    .ig-post:hover .ig-post-ov { background: rgba(26,10,10,0.65); }
-    .ig-post:hover .ig-post-ov i,
-    .ig-post:hover .ig-post-ov span { opacity: 1; transform: translateY(0); }
 
-    .ig-cta { text-align: center; margin-top: 48px; }
+    .ig-carousel-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      animation: ig-scroll 65s linear infinite;
+    }
+    .ig-carousel-track:hover { animation-play-state: paused; }
+
+    @keyframes ig-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .ig-embed-slot {
+      flex-shrink: 0;
+      width: 320px;
+    }
+    /* Normaliza el embed de Instagram */
+    .ig-embed-slot .instagram-media {
+      margin: 0 !important;
+      min-width: unset !important;
+      max-width: 320px !important;
+      border-radius: 4px !important;
+    }
+
+    .ig-cta { text-align: center; margin-top: 44px; }
     .btn-ig {
       display: inline-flex; align-items: center; gap: 12px;
       background: transparent; color: var(--crimson);
@@ -544,7 +539,10 @@
     .btn-ig:hover { background: var(--crimson); color: white; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,30,58,0.35); }
 
     @media (max-width: 900px) {
-      .ig-grid { padding: 0 24px; grid-template-columns: repeat(2,1fr); }
+      .ig-carousel-outer {
+        -webkit-mask-image: linear-gradient(to right, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
+      }
     }
 
     /* ===================== CONTACTO ===================== */
@@ -1020,40 +1018,65 @@
         <i class="fa-brands fa-instagram"></i>&nbsp; @kobsrestoran
       </a>
     </div>
-    <div class="ig-grid">
-      <a href="https://www.instagram.com/kobsrestoran/" target="_blank" rel="noopener" class="ig-post">
-        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80" alt="" loading="lazy">
-        <div class="ig-post-ov"><i class="fa-brands fa-instagram"></i><span>Ver más</span></div>
-      </a>
-      <a href="https://www.instagram.com/kobsrestoran/" target="_blank" rel="noopener" class="ig-post">
-        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80" alt="" loading="lazy">
-        <div class="ig-post-ov"><i class="fa-brands fa-instagram"></i><span>Ver más</span></div>
-      </a>
-      <a href="https://www.instagram.com/kobsrestoran/" target="_blank" rel="noopener" class="ig-post">
-        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80" alt="" loading="lazy">
-        <div class="ig-post-ov"><i class="fa-brands fa-instagram"></i><span>Ver más</span></div>
-      </a>
-      <a href="https://www.instagram.com/kobsrestoran/" target="_blank" rel="noopener" class="ig-post">
-        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500&q=80" alt="" loading="lazy">
-        <div class="ig-post-ov"><i class="fa-brands fa-instagram"></i><span>Ver más</span></div>
-      </a>
-      <a href="https://www.instagram.com/kobsrestoran/" target="_blank" rel="noopener" class="ig-post">
-        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500&q=80" alt="" loading="lazy">
-        <div class="ig-post-ov"><i class="fa-brands fa-instagram"></i><span>Ver más</span></div>
-      </a>
-      <a href="https://www.instagram.com/kobsrestoran/" target="_blank" rel="noopener" class="ig-post">
-        <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=500&q=80" alt="" loading="lazy">
-        <div class="ig-post-ov"><i class="fa-brands fa-instagram"></i><span>Ver más</span></div>
-      </a>
-      <a href="https://www.instagram.com/kobsrestoran/" target="_blank" rel="noopener" class="ig-post">
-        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&q=80" alt="" loading="lazy">
-        <div class="ig-post-ov"><i class="fa-brands fa-instagram"></i><span>Ver más</span></div>
-      </a>
-      <a href="https://www.instagram.com/kobsrestoran/" target="_blank" rel="noopener" class="ig-post">
-        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80" alt="" loading="lazy">
-        <div class="ig-post-ov"><i class="fa-brands fa-instagram"></i><span>Ver más</span></div>
-      </a>
+    <!-- Carrusel infinito: 8 posts reales + 8 clones para loop sin corte -->
+    <div class="ig-carousel-outer">
+      <div class="ig-carousel-track">
+
+        <!-- ── SET 1 (originales) ── -->
+        <div class="ig-embed-slot">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CwV3GaCO4b5/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Cvz8LSFOBLj/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/C2cTysBuNxD/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Cy1AqQNOAbx/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CxLXWwbOeQz/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Cwp3GBPuBYs/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CwAsbjgOLEi/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CvaGv61tbGK/" data-instgrm-version="14"></blockquote>
+        </div>
+
+        <!-- ── SET 2 (clones aria-hidden para loop infinito sin corte) ── -->
+        <div class="ig-embed-slot" aria-hidden="true">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CwV3GaCO4b5/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot" aria-hidden="true">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Cvz8LSFOBLj/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot" aria-hidden="true">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/C2cTysBuNxD/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot" aria-hidden="true">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Cy1AqQNOAbx/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot" aria-hidden="true">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CxLXWwbOeQz/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot" aria-hidden="true">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Cwp3GBPuBYs/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot" aria-hidden="true">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CwAsbjgOLEi/" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="ig-embed-slot" aria-hidden="true">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CvaGv61tbGK/" data-instgrm-version="14"></blockquote>
+        </div>
+
+      </div>
     </div>
+
     <div class="ig-cta">
       <a href="https://www.instagram.com/kobsrestoran/" target="_blank" rel="noopener" class="btn-ig">
         <i class="fa-brands fa-instagram"></i> Ver todos en Instagram
@@ -1235,5 +1258,7 @@ function handleForm(e) {
   }, 4000);
 }
 </script>
+  <!-- Script oficial de embeds de Instagram -->
+  <script async src="//www.instagram.com/embed.js"></script>
 </body>
 </html>
