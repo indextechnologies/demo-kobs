@@ -119,16 +119,32 @@
     .nav-links a:hover, .nav-links a.active { color: white; }
     .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-    .hamburger span { width: 24px; height: 2px; background: white; display: block; transition: all 0.3s; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; position: relative; }
+    .hamburger span { width: 24px; height: 2px; background: white; display: block; transition: all 0.3s ease; transform-origin: center; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     .mob-menu {
-      display: none; position: fixed; inset: 0;
-      background: var(--dark);
-      z-index: 998;
+      position: fixed; inset: 0;
+      background: rgba(16, 4, 4, 0.97);
+      backdrop-filter: blur(14px);
+      z-index: 999;
+      display: flex;
       flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-14px);
+      transition: opacity 0.32s ease, transform 0.32s ease, visibility 0s 0.32s;
     }
-    .mob-menu.open { display: flex; }
+    .mob-menu.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+      transition: opacity 0.32s ease, transform 0.32s ease, visibility 0s 0s;
+    }
     .mob-menu a {
       font-family: 'Playfair Display', serif;
       font-size: 2.2rem; color: white;
@@ -136,11 +152,7 @@
       transition: color 0.3s;
     }
     .mob-menu a:hover { color: var(--gold); }
-    .mob-close {
-      position: absolute; top: 20px; right: 24px;
-      font-size: 2.2rem; color: white;
-      background: none; border: none; cursor: pointer;
-    }
+    .mob-close { display: none; }
 
     @media (max-width: 820px) {
       #navbar { padding: 16px 24px; }
@@ -424,6 +436,11 @@
     @media (max-width: 900px) {
       .panels { padding: 0 24px; }
       .panel.active { grid-template-columns: repeat(2,1fr); }
+      .menudia-featured { grid-column: 1 / -1 !important; }
+    }
+    @media (max-width: 640px) {
+      .menudia-featured { flex-direction: column !important; gap: 18px !important; }
+      .menudia-featured .menudia-divider { display: none !important; }
     }
     @media (max-width: 560px) {
       .panel.active { grid-template-columns: 1fr; }
@@ -650,6 +667,88 @@
       footer { padding: 48px 24px; }
       #nosotros, #menu, #galeria, #instagram, #contacto { padding: 90px 0; }
     }
+
+    /* ===================== MOBILE FULL ===================== */
+
+    /* Badge que se sale del viewport a la izquierda */
+    @media (max-width: 900px) {
+      .nos-img-badge { left: 0; top: 16px; }
+      .nos-img-wrap img { height: 360px; }
+    }
+
+    /* Tablet-mobile: ≤ 640px */
+    @media (max-width: 640px) {
+      /* Hero */
+      .hero-content { padding: 0 20px; }
+      .hero-tagline { font-size: 0.95rem; letter-spacing: 0.13em; margin-bottom: 14px; }
+      .hero-subtitle { letter-spacing: 0.14em; margin-bottom: 36px; }
+
+      /* Section titles */
+      .sec-title { font-size: clamp(1.75rem, 5.5vw, 2.2rem); }
+
+      /* Nosotros */
+      .nos-body { font-size: 0.93rem; }
+      .nos-img-wrap img { height: 260px; }
+
+      /* Menu — tabs en scroll horizontal en vez de wrap */
+      .menu-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0 20px 10px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        gap: 6px;
+        margin-bottom: 40px;
+      }
+      .menu-tabs::-webkit-scrollbar { display: none; }
+      .tab { flex-shrink: 0; padding: 11px 16px; font-size: 0.7rem; }
+
+      /* Instagram embeds */
+      .ig-embed-slot { width: 270px; }
+
+      /* Contact inner */
+      .con-inner { padding: 0 20px; }
+    }
+
+    /* Small mobile: ≤ 480px */
+    @media (max-width: 480px) {
+      /* Mobile nav */
+      .mob-menu { gap: 26px; }
+      .mob-menu a { font-size: 1.85rem; }
+
+      /* Hero buttons apilados */
+      .hero-btns { flex-direction: column; align-items: center; gap: 12px; }
+      .btn { width: 100%; max-width: 300px; text-align: center; padding: 15px 20px; }
+
+      /* Nosotros stats */
+      .nos-stats { gap: 8px; }
+      .stat { padding: 14px 6px; }
+      .stat-n { font-size: 1.6rem; }
+      .stat-l { font-size: 0.62rem; letter-spacing: 0.07em; }
+
+      /* Galería: columna única */
+      .gal-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: auto !important;
+        padding: 0 20px;
+        gap: 8px;
+      }
+      .gal-item:nth-child(1),
+      .gal-item:nth-child(3) { grid-column: span 1; grid-row: span 1; }
+      .gal-item img { min-height: 220px !important; }
+
+      /* Secciones más compactas */
+      #nosotros, #menu, #galeria, #instagram, #contacto { padding: 70px 0; }
+
+      /* Tarjetas */
+      .card-body { padding: 16px 18px 20px; }
+
+      /* Footer */
+      footer { padding: 40px 20px; }
+      .foot-links { gap: 14px; }
+      .footer-logo { height: 40px; }
+    }
   </style>
 </head>
 <body>
@@ -764,7 +863,7 @@
             <div style="font-size:0.78rem; color:rgba(255,255,255,0.45); margin:10px 0 16px; line-height:1.6;">Entrada + Plato Principal + Postre<br>Incluye bebida sin alcohol</div>
             <span style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600; color:var(--gold);">₲ 120.000</span>
           </div>
-          <div style="width:1px; height:90px; background:rgba(255,255,255,0.1); flex-shrink:0;"></div>
+          <div class="menudia-divider" style="width:1px; height:90px; background:rgba(255,255,255,0.1); flex-shrink:0;"></div>
           <div style="font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:2; flex:1;">
             <span style="color:var(--gold); font-weight:600;">Entrada:</span> Sopa del día o ensalada mixta<br>
             <span style="color:var(--gold); font-weight:600;">Principal:</span> Bife a la criolla o Milanesa napolitana<br>
@@ -1251,10 +1350,10 @@ var ham     = document.getElementById('hamburger');
 var mob     = document.getElementById('mob-menu');
 var mobClose = document.getElementById('mob-close');
 
-ham.addEventListener('click', function() { mob.classList.add('open'); document.body.style.overflow = 'hidden'; });
+ham.addEventListener('click', function() { mob.classList.add('open'); ham.classList.add('open'); document.body.style.overflow = 'hidden'; });
 mobClose.addEventListener('click', close);
 document.querySelectorAll('.mob-link').forEach(function(l) { l.addEventListener('click', close); });
-function close() { mob.classList.remove('open'); document.body.style.overflow = ''; }
+function close() { mob.classList.remove('open'); ham.classList.remove('open'); document.body.style.overflow = ''; }
 
 // ===================== MENU TABS =====================
 document.querySelectorAll('.tab').forEach(function(tab) {
